@@ -1,5 +1,11 @@
 <?php
-//connection � la bdd
+// Rapporte les erreurs d'exécution de script mais pas les warning
+//error_reporting(E_ALL & ~E_WARNING);
+
+//tableau alerte erreur utilisateur
+$userErrors = array();
+
+//connection à la bdd
 try
 {
 	$bdd = new PDO('mysql:host=localhost;dbname=Mypipe','root','');
@@ -13,12 +19,13 @@ catch (Exception $e)
 //autoload
 function chargerClasse($classe)
 {
-	require_once 'model/'.$classe . '.class.php'; // On inclut la classe correspondante au paramètre passé.
+	// On inclut la classe correspondante au paramètre passé.
+	require_once 'model/'.$classe . '.class.php';
 }
 
 spl_autoload_register('chargerClasse');
 
-//d�finition des varriable controler et action
+//définition des variable controler et action
 if (!empty($_GET['controler'])) {
 	$_GET['controler']=stripslashes($_GET['controler']);
 	$_GET['controler']=htmlspecialchars($_GET['controler']);

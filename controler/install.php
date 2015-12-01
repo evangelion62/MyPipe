@@ -3,10 +3,16 @@ switch ($action) {
 	case 'index':
 		
 		/*création des tables*/
+		$pipeManager = new PipeManager($bdd);
+		$pipeManager->createTable();
+		$pipeoptionManager = new PipeoptionManager($bdd);
+		$pipeoptionManager->createTable();
 		$imgManager = new ImgManager($bdd);
 		$imgManager->createTable();
 		$pageManager = new PageManager($bdd);
 		$pageManager->createTable();
+		$pageoptionManager = new PageoptionManager($bdd);
+		$pageoptionManager->createTable();
 		$userManager = new UserManager($bdd);
 		$userManager->createTable();
 		$tokenManager = new TokenManager($bdd);
