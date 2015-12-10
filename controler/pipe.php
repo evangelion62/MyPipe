@@ -1,33 +1,5 @@
 <?php
 switch ($action) {
-	case 'getallhtmlpage':
-		if(!empty($_GET['url'])){
-
-			$URL = $_GET['url'];
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, $URL);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			$resultat = curl_exec ($ch);
-			$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-			curl_close($ch);
-			
-			if ($httpCode != 404){
-				ob_start();
-				print_r($resultat);
-				$content = ob_get_contents();
-				ob_end_clean();
-				require_once 'view/layout/layout.php';
-			}else{
-				ob_start();
-				require_once 'view/htmlerror/404.php';
-				$content = ob_get_contents();
-				ob_end_clean();
-				require_once 'view/layout/layout.php';
-			}
-		}
-		
-		
-	break;
 	
 	case 'add':
 		if (!empty($_POST['name'])&&!empty($_POST['baseurl'])){

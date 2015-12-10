@@ -15,6 +15,7 @@ class Pageoption extends Entity{
 							Entity::LEN=>Entity::VARCHAR_MAX_LEN,
 							Entity::NULL_OR_NOT=>Entity::NOT_NULL,
 							Entity::COMMENT=>'nom de l option',
+							Entity::KEY=>Entity::UNIQUE_KEY
 					),
 					'value'=>array(
 							Entity::TYPE=>Entity::VARCHAR,
