@@ -13,7 +13,7 @@ switch ($action) {
 			$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			curl_close($ch);
 				
-			if ($httpCode != 404){
+			if ($httpCode != 404 && $httpCode != 503){
 				//création du DOM de la page
 				$page = new DOMDocument();
 				$page->loadHTML($resultat);
@@ -26,7 +26,9 @@ switch ($action) {
 				$title = $page->getElementsByTagName('title');
 				$title=$title->item(0);
 				$title=$title->textContent;
-				$bddpage->setUrl($URL);
+				$bddpage->setUrl($URL.'/zip');
+				
+				$title =  substr($title,0,-14);
 				$bddpage->setTitle($title);
 				
 				//page img
@@ -48,8 +50,14 @@ switch ($action) {
 					}
 				}
 				
-				$imgserialize = serialize($imgtable);
-				$bddpage->setImgsrcs($imgserialize);
+				if (!empty($imgtable)){
+					
+					$imgserialize ='';
+					foreach ($imgtable as $img){
+						$imgserialize = $imgserialize.$img.'|';
+					}
+					$bddpage->setImgsrcs($imgserialize);
+				}
 				
 				//nombre de vue
 				foreach ($page->getElementsByTagName('span') as $spans) {
@@ -134,9 +142,11 @@ switch ($action) {
 				}
 				
 				if(!empty($comments)){
-
-					$comments = serialize($comments);
-					$bddpage->setComments($comments);
+					$commentsserializa='';
+					foreach ($comments as $comment){
+						$commentsserializa=$commentsserializa.$comment.'|';
+					}
+					$bddpage->setComments($commentsserializa);
 				}
 				
 				//tags
@@ -149,8 +159,11 @@ switch ($action) {
 				}
 				
 				if(!empty($tags)){
-					$tags=serialize($tags);
-					$bddpage->setTags($tags);
+					$tagsserialize='';
+					foreach ($tags as $tag) {
+						$tagsserialize = $tagsserialize.$tag.'|';
+					}
+					$bddpage->setTags($tagsserialize);
 				}
 				
 				
