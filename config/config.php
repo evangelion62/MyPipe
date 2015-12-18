@@ -1,6 +1,6 @@
 <?php
 // Rapporte les erreurs d'exécution de script mais pas les warning
-error_reporting(E_ALL & ~E_WARNING);
+//error_reporting(E_ALL & ~E_WARNING);
 
 //tableau alerte erreur utilisateur
 $userErrors = array();
