@@ -2,10 +2,10 @@
 
 switch ($action) {
 	case 'productadd':
-		if (!empty($_GET['id']) && !empty($_GET['nbdls'])){
+		if (!empty($_GET['id']) && !empty($_GET['nbdlsmin']) && !empty($_GET['nbdlsmax']) ){
 			$pageManager= new PageManager($bdd);
 			$page = $pageManager->get($_GET['id']);
-			if($page->dls() >$_GET['nbdls']){
+			if($page->dls() >$_GET['nbdlsmin'] && $page->dls() <$_GET['nbdlsmax']){
 				//img
 				$imagestable = explode('|', $page->imgsrcs());
 				$imgstr = array();
